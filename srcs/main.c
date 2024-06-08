@@ -27,13 +27,8 @@ void print_manufacturer_tree(t_le_manufacturer_data *node)
 {
     if (node == NULL)
         return;
-
-    // Recursively print left subtree
     print_manufacturer_tree(node->left);
-
-    // Print current node's data
     printf("ID: %04x, Name: %s\n", node->id, node->name);
-    // Recursively print right subtree
     print_manufacturer_tree(node->right);
 }
 
