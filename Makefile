@@ -3,44 +3,39 @@ EXE = ble_parser
 
 CC = gcc
 CFLAGS = -Wall -g -O2
-
 INCLUDES = -I./includes
 SRC_DIR = ./srcs
-OBJ_DIR = ./obj
+OBJ_DIR = ./build/obj
+DEP_DIR = ./build/deps
 
 LIBS = -lyaml
 
 SRCS = $(shell find $(SRC_DIR) -name "*.c" -not -name "main.c")
 OBJS = $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRCS))
+DEPS = $(patsubst $(SRC_DIR)/%.c,$(DEP_DIR)/%.d,$(SRCS))
 
 all: $(NAME)
 
-# Create necessary directories
-$(OBJ_DIR)/%/:
-	@mkdir -p $@
-
-# Create obj directories for each source directory
-create_dirs: | $(OBJ_DIR)
-	@mkdir -p $(patsubst $(SRC_DIR)/%,$(OBJ_DIR)/%/,$(dir $(SRCS)))
-
-$(OBJ_DIR):
-	@mkdir -p $(OBJ_DIR)
-
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | create_dirs
+# Create necessary directories and compile source files to object files
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+	@mkdir -p $(dir $@) $(dir $(DEP_DIR)/$*)
 	@echo "\033[0;34mCompiling... $<\033[0m"
-	$(CC) $(CFLAGS) $(INCLUDES) -c -o $@ $<
+	$(CC) $(CFLAGS) $(INCLUDES) -MMD -MP -c -o $@ $<
+	@mv $(OBJ_DIR)/$*.d $(DEP_DIR)/$*.d
 
-$(NAME): $(OBJ_DIR) $(OBJS)
+-include $(DEPS)
+
+$(NAME): $(OBJS)
 	@ar rcs $@ $(OBJS)
 	@echo "\033[0;32mLibrary created: $(NAME)\033[0m"
 
-executable: $(OBJ_DIR) $(OBJS)
+executable: $(OBJS)
 	@echo "\033[0;34mCompiling and linking... $(EXE)\033[0m"
 	$(CC) $(CFLAGS) $(INCLUDES) -o $(EXE) $(OBJS) $(SRC_DIR)/main.c $(LIBS)
 
 clean:
 	@echo "\033[0;31mCleaning...\033[0m"
-	@rm -rf $(OBJ_DIR)
+	@rm -rf $(OBJ_DIR) $(DEP_DIR)
 
 fclean: clean
 	@echo "\033[0;31mFull Cleaning...\033[0m"
@@ -50,4 +45,4 @@ re: fclean all
 
 rex: fclean executable
 
-.PHONY: all clean fclean re executable create_dirs
+.PHONY: all clean fclean re executable
