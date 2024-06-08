@@ -11,26 +11,32 @@ OBJ_DIR = ./obj
 LIBS = -lyaml
 
 SRCS = $(shell find $(SRC_DIR) -name "*.c" -not -name "main.c")
-OBJS = $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
+OBJS = $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRCS))
 
 all: $(NAME)
 
+# Create necessary directories
+$(OBJ_DIR)/%/:
+	@mkdir -p $@
+
+# Create obj directories for each source directory
+create_dirs: | $(OBJ_DIR)
+	@mkdir -p $(patsubst $(SRC_DIR)/%,$(OBJ_DIR)/%/,$(dir $(SRCS)))
+
 $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR)
-	@mkdir -p $(OBJ_DIR)/init_data_structs
-	@mkdir -p $(OBJ_DIR)/free
+
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | create_dirs
+	@echo "\033[0;34mCompiling... $<\033[0m"
+	$(CC) $(CFLAGS) $(INCLUDES) -c -o $@ $<
 
 $(NAME): $(OBJ_DIR) $(OBJS)
 	@ar rcs $@ $(OBJS)
 	@echo "\033[0;32mLibrary created: $(NAME)\033[0m"
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
-	@echo "\033[0;34mCompiling... $<\033[0m"
-	$(CC) $(CFLAGS) $(INCLUDES) -c -o $@ $<
-
 executable: $(OBJ_DIR) $(OBJS)
 	@echo "\033[0;34mCompiling and linking... $(EXE)\033[0m"
-	$(CC) $(CFLAGS) $(INCLUDES) -o $(EXE) $(shell find $(OBJ_DIR) -name "*.o") $(SRC_DIR)/main.c $(LIBS)
+	$(CC) $(CFLAGS) $(INCLUDES) -o $(EXE) $(OBJS) $(SRC_DIR)/main.c $(LIBS)
 
 clean:
 	@echo "\033[0;31mCleaning...\033[0m"
@@ -42,4 +48,6 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re executable
+rex: fclean executable
+
+.PHONY: all clean fclean re executable create_dirs

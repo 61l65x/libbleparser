@@ -10,9 +10,10 @@ void	free_manufacturer_data(t_le_manufacturer_data *node)
 	free(node->name);
 	free(node->proprietary_data);
 	free(node);
+	node = NULL;
 }
 
-void	free_class_of_device_list(t_le_class_of_device *cod)
+static void	free_class_of_device_list(t_le_class_of_device *cod)
 {
 	t_le_class_of_device	*next_cod;
 
@@ -22,8 +23,15 @@ void	free_class_of_device_list(t_le_class_of_device *cod)
 		free(cod->major_class);
 		free(cod->minor_class);
 		free(cod);
+		cod = NULL;
 		cod = next_cod;
 	}
+}
+
+static void	free_implemented_ad_types(t_le_implemented_ad_types *implemented)
+{
+	free_manufacturer_data(implemented->manufacturer_data);
+	// free_class_of_device_list(implemented->cod);
 }
 
 void	free_le_adv_data_repository(t_le_adv_data_repository *repo)
@@ -36,14 +44,9 @@ void	free_le_adv_data_repository(t_le_adv_data_repository *repo)
 	{
 		next_ad_type = current_ad_type->next;
 		free(current_ad_type->name);
-		free(current_ad_type->implemented_ad_types);
 		free(current_ad_type);
 		current_ad_type = next_ad_type;
 	}
-	free_manufacturer_data(repo->manufacturer_data);
-	free_class_of_device_list(repo->cod);
-	repo->ad_types = NULL;
-	repo->manufacturer_data = NULL;
-	repo->cod = NULL;
+	free_implemented_ad_types(&repo->implemented_ad_types);
 	repo->num_le_adv_data = 0;
 }

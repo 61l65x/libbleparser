@@ -1,13 +1,13 @@
 
 #include "ble_parser.h"
 
-int					init_le_ad_types(t_le_adv_data_repository *repo);
+int					parse_all_yaml(t_le_adv_data_repository *repo);
 
 static t_ble_parser	*init_ble_parser(void)
 {
 	t_ble_parser	*parser;
 
-	parser = (t_ble_parser *)calloc(1, sizeof(t_ble_parser));
+	parser = calloc(1, sizeof(t_ble_parser));
 	if (parser == NULL)
 	{
 		fprintf(stderr, "Failed to allocate memory for BLE parser\n");
@@ -16,13 +16,34 @@ static t_ble_parser	*init_ble_parser(void)
 	return (parser);
 }
 
+static void destroy_ble_parser(t_ble_parser *parser)
+{
+	free_le_adv_data_repository(&parser->repo);
+	free(parser);
+	parser = NULL;
+}
+
+void print_manufacturer_tree(t_le_manufacturer_data *node)
+{
+    if (node == NULL)
+        return;
+
+    // Recursively print left subtree
+    print_manufacturer_tree(node->left);
+
+    // Print current node's data
+    printf("ID: %04x, Name: %s\n", node->id, node->name);
+    // Recursively print right subtree
+    print_manufacturer_tree(node->right);
+}
+
 int	main(void)
 {
 	t_ble_parser	*parser;
 	t_le_ad_types	*ad_type;
 
 	parser = init_ble_parser();
-	if (init_le_ad_types(&parser->repo) != 0)
+	if (parse_all_yaml(&parser->repo) != 0)
 	{
 		fprintf(stderr,
 			"Failed to initialize LE advertising data repository\n");
@@ -35,7 +56,8 @@ int	main(void)
 		printf("AD Type: 0x%02x, Name: %s\n", ad_type->type, ad_type->name);
 		ad_type = ad_type->next;
 	}
+	print_manufacturer_tree(parser->repo.implemented_ad_types.manufacturer_data);
 	// Cleanup
-	free_le_adv_data_repository(&parser->repo);
+	destroy_ble_parser(parser);
 	return (0);
 }

@@ -24,18 +24,17 @@ typedef struct s_le_class_of_device
 	struct s_le_class_of_device		*next;
 }									t_le_class_of_device;
 
-// Implemented profiles under ad_types.yaml
+// So far Implemented profiles under ad_types.yaml
 typedef struct s_le_implemented_ad_types
 {
 	t_le_manufacturer_data			*manufacturer_data;
 	t_le_class_of_device			*cod;
-}									t_implemented_ad_types;
+}									t_le_implemented_ad_types;
 
 typedef struct s_le_ad_types
 {
 	uint8_t							type;
 	char							*name;
-	t_implemented_ad_types			*implemented_ad_types;
 	struct s_le_ad_types			*next;
 }									t_le_ad_types;
 
