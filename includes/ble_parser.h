@@ -27,5 +27,8 @@ typedef struct s_ble_parser
 // Functions
 int								parse_all_yaml(t_le_adv_data_repository *repo);
 void							free_le_adv_data_repository(t_le_adv_data_repository *repo);
+void							print_adv_data_redable(t_le_adv_data_repository *repo, uint8_t *data, size_t len);
+void							destroy_ble_parser(t_ble_parser *parser);
+t_ble_parser					*init_ble_parser(void);
 
 #endif // BLE_PARSER_H

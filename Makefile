@@ -51,4 +51,4 @@ re: fclean all
 
 rex: fclean executable
 
-.PHONY: all clean fclean re executable
+.PHONY: all clean fclean re executable update_deps
