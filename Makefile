@@ -44,8 +44,11 @@ fclean: clean
 
 update_deps:
 	@echo "\033[0;34mUpdating dependencies...\033[0m"
-	@git clone https://bitbucket.org/bluetooth-SIG/public.git repository
-	@cd repository && git pull origin main
+	@if [ ! -d "repository" ]; then \
+		git clone https://bitbucket.org/bluetooth-SIG/public.git repository; \
+	else \
+		cd repository && git pull origin main; \
+	fi
 	@echo "\033[0;32mDependencies updated\033[0m"
 
 re: fclean all
