@@ -14,7 +14,7 @@ SRCS = $(shell find $(SRC_DIR) -name "*.c" -not -name "main.c")
 OBJS = $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRCS))
 DEPS = $(patsubst $(SRC_DIR)/%.c,$(DEP_DIR)/%.d,$(SRCS))
 
-all: $(NAME)
+all: update_deps $(NAME)
 
 # Create necessary directories and compile source files to object files
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
@@ -44,6 +44,7 @@ fclean: clean
 
 update_deps:
 	@echo "\033[0;34mUpdating dependencies...\033[0m"
+	@git clone https://bitbucket.org/bluetooth-SIG/public.git repository
 	@cd repository && git pull origin main
 	@echo "\033[0;32mDependencies updated\033[0m"
 

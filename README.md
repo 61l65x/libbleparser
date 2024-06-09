@@ -46,6 +46,7 @@ Each advertising data field provides specific information about the advertising 
 2. **Parsing**: Pass the raw advertising data to the library to parse it and convert it into a readable form.
 3. **Action**: Use the parsed data to perform various actions based on the information extracted.
 
+4. **So Basicaly**: We parse all the assigned numbers in the repository to good datastructures for them and provide getter functions for user passing only the advertising data and it returns the corresponding data!
 ## Installation
 
 To use `libbleparser` in your project, include the header files and link against the static library provided by the project.
