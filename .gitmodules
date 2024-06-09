@@ -1,4 +1,4 @@
 [submodule "repository"]
-  path = repository
-  url = git@bitbucket.org:bluetooth-SIG/public.git
+	path = repository
+	url = https://bitbucket.org/bluetooth-SIG/public.git
 
