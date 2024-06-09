@@ -27,6 +27,7 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 
 $(NAME): $(OBJS)
 	@ar rcs $@ $(OBJS)
+	@mv *.a ./build
 	@echo "\033[0;32mLibrary created: $(NAME)\033[0m"
 
 executable: $(OBJS)
@@ -40,6 +41,11 @@ clean:
 fclean: clean
 	@echo "\033[0;31mFull Cleaning...\033[0m"
 	@rm -f $(NAME) $(EXE)
+
+update_deps:
+	@echo "\033[0;34mUpdating dependencies...\033[0m"
+	@cd repository && git pull origin main
+	@echo "\033[0;32mDependencies updated\033[0m"
 
 re: fclean all
 
