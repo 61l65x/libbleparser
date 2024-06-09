@@ -1,4 +1,4 @@
-#include "ble_data_structs.h"
+#include "data_structs.h"
 #include "ble_parser.h"
 
 typedef struct s_company_identifier

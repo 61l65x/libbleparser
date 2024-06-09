@@ -1,8 +1,7 @@
 #ifndef BLE_PARSER_H
 # define BLE_PARSER_H
 
-# include "assigned_numbers.h"
-# include "ble_data_structs.h"
+# include "data_structs.h"
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>

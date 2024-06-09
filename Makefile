@@ -3,7 +3,7 @@ EXE = ble_parser
 
 CC = gcc
 CFLAGS = -Wall -g -O2
-INCLUDES = -I./includes
+INCLUDES = -I./includes -I./includes/parse_yaml
 SRC_DIR = ./srcs
 OBJ_DIR = ./build/obj
 DEP_DIR = ./build/deps
