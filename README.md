@@ -14,15 +14,25 @@ The core structure that represents the LE advertising report in this library is 
 
 ```c
 #define EVT_LE_ADVERTISING_REPORT 0x02
-
 typedef struct {
-    uint8_t     evt_type;
-    uint8_t     bdaddr_type;
-    bdaddr_t    bdaddr;
-    uint8_t     length;
-    uint8_t     data[];
+    uint8_t     evt_type;      // Event type (e.g., ADV_IND)
+    uint8_t     bdaddr_type;   // Address type (public or random)
+    bdaddr_t    bdaddr;        // Device address
+    uint8_t     length;        // Length of the data
+    uint8_t     data[];        // Advertising data
 } __attribute__ ((packed)) le_advertising_info;
 ```
+## uint8_t data[] = 
+
+![data](assets/advpacket.png)
+ ### This is the format for the adv data[] with each array member being 8 bytes, determined by the ad_types.yaml. Under each AD type, there is more data inside the byte that can be extracted using bitwise operations. The advertising data is structured as a series of AD (Advertising Data) structures, each consisting of:
+
+- **Length (1 byte)**: Total length of the AD structure.
+- **AD Type (1 byte)**: Type of the advertising data (e.g., Complete Local Name, Manufacturer Specific Data).
+- **AD Data (variable length)**: The actual data corresponding to the AD Type.
+
+Each advertising data field provides specific information about the advertising device, such as its name, supported services, and manufacturer details. The data extraction
+
 
 ## Key Features
 
