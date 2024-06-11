@@ -12,6 +12,9 @@
 # define LE_REPO_COMPANY_IDENTIFIERS_PATH "repository/assigned_numbers/company_identifiers/company_identifiers.yaml"
 # define LE_REPO_COD_PATH "repository/assigned_numbers/core/class_of_device.yaml"
 
+void                print_class_of_device(t_le_class_of_device *cod);
+void				print_manufacturer_tree(t_le_manufacturer_data *node);
+
 typedef struct s_le_adv_data_repository
 {
 	t_le_ad_types				*ad_types;
