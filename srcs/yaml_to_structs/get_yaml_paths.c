@@ -8,14 +8,14 @@
 #include <sys/stat.h>
 #include <unistd.h>
 
-int	directory_exists(const char *path)
+static int	directory_exists(const char *path)
 {
 	struct stat	st;
 
 	return (stat(path, &st) == 0 && S_ISDIR(st.st_mode));
 }
 
-int	find_libbleparser(char *base_path, size_t size)
+static int	find_libbleparser(char *base_path, size_t size)
 {
 	char	test_path[PATH_MAX] = {0};
 	char	*slash;
@@ -38,25 +38,18 @@ int	find_libbleparser(char *base_path, size_t size)
 	return (0);
 }
 
-void	init_yaml_paths(t_yaml_paths *paths)
+int	init_yaml_paths(t_yaml_paths *paths)
 {
 	char exe_path[PATH_MAX] = {0};
 	char base_path[PATH_MAX] = {0};
 	const ssize_t count = readlink("/proc/self/exe", exe_path, PATH_MAX);
 
 	if (count == -1)
-	{
-		perror("readlink");
-		exit(EXIT_FAILURE);
-	}
+		return (perror("readlink"), -1);
 	exe_path[count] = '\0';
 	strcpy(base_path, dirname(exe_path));
 	if (!find_libbleparser(base_path, PATH_MAX))
-	{
-		fprintf(stderr, "libbleparser directory not found\n");
-		exit(EXIT_FAILURE);
-	}
-	// Construct paths relative to the base path
+		return (fprintf(stderr, LIB_NOT_FOUND), -1);
 	snprintf(paths->ad_types_path, PATH_MAX, "%s/%s", base_path,
 		LE_REPO_AD_TYPES_PATH);
 	snprintf(paths->company_identifiers_path, PATH_MAX, "%s/%s", base_path,
@@ -65,4 +58,5 @@ void	init_yaml_paths(t_yaml_paths *paths)
 	printf("ad_types_path: %s\n", paths->ad_types_path);
 	printf("company_identifiers_path: %s\n", paths->company_identifiers_path);
 	printf("cod_path: %s\n", paths->cod_path);
+	return (0);
 }
