@@ -58,6 +58,7 @@ static int parse_company_identifiers_node(yaml_document_t *document, yaml_node_t
 // Function to parse the company_identifiers.yaml file
 int parse_company_identifiers_yaml(const char *file_path, t_company_identifier **companies, size_t *company_count)
 {
+	printf("Parsing company identifiers YAML file: %s\n", file_path);
 	FILE *file = fopen(file_path, "r");
 	if (!file)
 	{

@@ -27,12 +27,3 @@ void destroy_ble_parser(t_ble_parser *parser)
 	free(parser);
 	parser = NULL;
 }
-
-void print_manufacturer_tree(t_le_manufacturer_data *node)
-{
-    if (node == NULL)
-        return;
-    print_manufacturer_tree(node->left);
-    printf("ID: %04x, Name: %s\n", node->id, node->name);
-    print_manufacturer_tree(node->right);
-}

@@ -2,18 +2,25 @@
 # define BLE_PARSER_H
 
 # include "./parse_yaml/data_structs.h"
+# include <linux/limits.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
 # include <yaml.h>
 
-# define LE_REPO_PATH "repository/public/"
 # define LE_REPO_AD_TYPES_PATH "repository/assigned_numbers/core/ad_types.yaml"
 # define LE_REPO_COMPANY_IDENTIFIERS_PATH "repository/assigned_numbers/company_identifiers/company_identifiers.yaml"
 # define LE_REPO_COD_PATH "repository/assigned_numbers/core/class_of_device.yaml"
 
-void                print_class_of_device(t_le_class_of_device *cod);
-void				print_manufacturer_tree(t_le_manufacturer_data *node);
+typedef struct s_yaml_paths
+{
+	char						ad_types_path[PATH_MAX];
+	char						company_identifiers_path[PATH_MAX];
+	char						cod_path[PATH_MAX];
+}								t_yaml_paths;
+
+void							print_class_of_device(t_le_class_of_device *cod);
+void							print_manufacturer_tree(t_le_manufacturer_data *node);
 
 typedef struct s_le_adv_data_repository
 {
@@ -30,7 +37,8 @@ typedef struct s_ble_parser
 // Functions
 int								parse_all_yaml(t_le_adv_data_repository *repo);
 void							free_le_adv_data_repository(t_le_adv_data_repository *repo);
-void							print_adv_data_readable(t_ble_parser *parser, uint8_t *data, size_t len);
+void							print_adv_data_readable(t_ble_parser *parser,
+									uint8_t *data, size_t len);
 void							destroy_ble_parser(t_ble_parser *parser);
 t_ble_parser					*init_ble_parser(void);
 

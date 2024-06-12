@@ -62,3 +62,12 @@ void print_class_of_device(t_le_class_of_device *cod)
     print_major_classes(cod->major_class);
     print_services(cod->service);
 }
+
+void print_manufacturer_tree(t_le_manufacturer_data *node)
+{
+    if (node == NULL)
+        return;
+    print_manufacturer_tree(node->left);
+    printf("ID: %04x, Name: %s\n", node->id, node->name);
+    print_manufacturer_tree(node->right);
+}

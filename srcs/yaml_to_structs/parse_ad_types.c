@@ -85,6 +85,7 @@ int	parse_ad_types_yaml(t_le_adv_data_repository *repo, const char *file_path)
 	file = fopen(file_path, "r");
 	if (!file)
 	{
+		printf("FAILED TO OPEN FILE %s\n", file_path);
 		perror("Failed to open file");
 		return (-1);
 	}

@@ -34,9 +34,12 @@ executable: $(OBJS)
 	@echo "\033[0;34mCompiling and linking... $(EXE)\033[0m"
 	$(CC) $(CFLAGS) $(INCLUDES) -o $(EXE) $(OBJS) $(SRC_DIR)/main.c $(LIBS)
 
+test:
+	$(CC) $(CFLAGS) $(INCLUDES) -o test tests/test.c -L./build -lbleparser -lyaml
+
 clean:
 	@echo "\033[0;31mCleaning...\033[0m"
-	@rm -rf $(OBJ_DIR) $(DEP_DIR)
+	@rm -rf $(OBJ_DIR) $(DEP_DIR) build/$(NAME)
 
 fclean: clean
 	@echo "\033[0;31mFull Cleaning...\033[0m"
