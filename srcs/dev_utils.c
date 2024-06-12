@@ -68,6 +68,6 @@ void print_manufacturer_tree(t_le_manufacturer_data *node)
     if (node == NULL)
         return;
     print_manufacturer_tree(node->left);
-    printf("ID: %04x, Name: %s\n", node->id, node->name);
+    printf("ID: %x, Name: %s\n", node->id, node->name);
     print_manufacturer_tree(node->right);
 }

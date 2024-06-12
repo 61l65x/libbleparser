@@ -2,21 +2,22 @@
 #include "ble_parser.h"
 #include "data_structs.h"
 
-t_le_manufacturer_data *get_manufacturer_data(t_le_adv_data_repository *repo, int manufacturer_id)
+
+t_le_manufacturer_data *get_company_from_tree(t_le_manufacturer_data *node, int manufacturer_id)
 {
-    t_le_manufacturer_data *current = repo->implemented_ad_types.root;
+    if (node == NULL)
+        return NULL;
 
-    while (current) {
-        if (current->id == manufacturer_id) {
-            return current;
-        } else if (manufacturer_id < current->id) {
-            current = current->left;
-        } else {
-            current = current->right;
-        }
+    if (node->id == manufacturer_id)
+    {
+        printf("ID: %x, Name: %s\n", node->id, node->name);
+        return node;
     }
-
-    return NULL;
+    t_le_manufacturer_data *found_node = get_company_from_tree(node->left, manufacturer_id);
+    if (found_node == NULL) {
+        found_node = get_company_from_tree(node->right, manufacturer_id);
+    }
+    return found_node;
 }
 
 t_le_cod_major_class *get_cod_major_class(t_le_adv_data_repository *repo, uint8_t class_code)
