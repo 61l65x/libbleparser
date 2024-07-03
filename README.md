@@ -47,15 +47,24 @@ Each advertising data field provides specific information about the advertising 
 3. **Action**: Use the parsed data to perform various actions based on the information extracted.
 
 4. **So Basicaly**: We parse all the assigned numbers in the repository to good datastructures for them and provide getter functions for user passing only the advertising data and it returns the corresponding data!
+
 ## Installation
 
-To use `libbleparser` in your project, include the header files and link against the static library provided by the project.
-
+**Clone the repository with submodules && build it**
 ```bash
-gcc -Wall -g -O2 -I./includes -o my_application my_application.c -L./build -lbleparser -lyaml
+git clone --recurse-submodules https://github.com/61l65x/libbleparser.git
+cd libbleparser
+make
+cd ..
 ```
+**Link against the static library in your project**
+```bash
+# Find the path to the libbleparser directory
+LIBBLEPARSER_DIR=$(find . -type d -name libbleparser)
 
-## Usage Example (coming soon)
+# Compile your application using the found path
+gcc -I$LIBBLEPARSER_DIR/includes -o app app.c -L$LIBBLEPARSER_DIR/build -lbleparser -lyaml
+```
 
 ## Functions
 
