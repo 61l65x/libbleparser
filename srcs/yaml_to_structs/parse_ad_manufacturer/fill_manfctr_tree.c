@@ -11,6 +11,10 @@ int								parse_company_identifiers_yaml(const char *file_path,
 									t_company_identifier **companies,
 									size_t *company_count);
 
+
+
+/// ADD PROPRIETARY DATA TO MANUFACTURER NODE ALSO
+
 static t_le_manufacturer_data	*create_manufacturer_node(int id,
 		const char *name)
 {
