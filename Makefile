@@ -38,7 +38,7 @@ test:
 	$(CC) $(CFLAGS) $(INCLUDES) -o test tests/test.c -L./build -lbleparser -lyaml
 
 clean:
-	@echo "\033[0;31mCleaning...\033[0m"
+	@echo "\033[0;31mCleaning... libbleparser\033[0m"
 	@rm -rf $(OBJ_DIR) $(DEP_DIR) build/$(NAME)
 
 fclean: clean
@@ -53,6 +53,7 @@ update_deps:
 		cd repository && git pull origin main; \
 	fi
 	@echo "\033[0;32mDependencies updated\033[0m"
+	git pull origin main
 
 re: fclean all
 
