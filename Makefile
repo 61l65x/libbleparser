@@ -28,9 +28,9 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 $(NAME): $(OBJS)
 	@ar rcs $@ $(OBJS)
 	@mv *.a ./build
-	@echo "\033[0;32mLibrary created: $(NAME)\033[0m"
+	@echo "\033[0;32mLibrary created: build/$(NAME)\033[0m"
 
-executable: $(OBJS)
+executable: update_deps $(OBJS)
 	@echo "\033[0;34mCompiling and linking... $(EXE)\033[0m"
 	$(CC) $(CFLAGS) $(INCLUDES) -o $(EXE) $(OBJS) $(SRC_DIR)/main.c $(LIBS)
 
@@ -39,7 +39,7 @@ test:
 
 clean:
 	@echo "\033[0;31mCleaning... libbleparser\033[0m"
-	@rm -rf $(OBJ_DIR) $(DEP_DIR) build/$(NAME)
+	@rm -rf $(OBJ_DIR) $(DEP_DIR) build/$(NAME) $(EXE)
 
 fclean: clean
 	@echo "\033[0;31mFull Cleaning...\033[0m"
@@ -47,13 +47,12 @@ fclean: clean
 
 update_deps:
 	@echo "\033[0;34mUpdating dependencies...\033[0m"
-	@if [ ! -d "repository" ]; then \
-		git clone https://bitbucket.org/bluetooth-SIG/public.git repository; \
+	@if [ ! -d "repository" ] || [ -z "$(ls -A repository)" ]; then \
+		git submodule update --init --recursive; \
 	else \
-		cd repository && git pull origin main; \
+		git submodule foreach git pull origin main; \
 	fi
 	@echo "\033[0;32mDependencies updated\033[0m"
-	git pull origin main
 
 re: fclean all
 
