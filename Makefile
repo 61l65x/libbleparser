@@ -50,7 +50,8 @@ update_deps:
 	@if [ ! -d "repository" ] || [ -z "$(ls -A repository)" ]; then \
 		git submodule update --init --recursive; \
 	else \
-		git submodule foreach git pull origin main; \
+		git submodule foreach 'git checkout main || true'; \
+		git submodule foreach 'git pull origin main'; \
 	fi
 	@echo "\033[0;32mDependencies updated\033[0m"
 
