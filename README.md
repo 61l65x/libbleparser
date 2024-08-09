@@ -1,5 +1,9 @@
 # libbleparser
 
+## **Status: In Development**
+
+This library was developed as part of a larger software project to extract and return manufacturer-specific data from LE advertising packets, and this functionality is fully operational. Other features are currently under development and will be added as the library evolves.
+
 ## Overview
 
 `libbleparser` is a library designed for parsing Bluetooth Low Energy (LE) advertising data. LE devices broadcast advertising data, which can be used for device discovery, connection establishment, and information dissemination. This library provides an API to interpret and parse this raw advertising data into a readable form, facilitating various actions based on the parsed information.
