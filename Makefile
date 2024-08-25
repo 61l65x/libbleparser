@@ -47,12 +47,9 @@ fclean: clean
 
 update_deps:
 	@echo "\033[0;34mUpdating dependencies...\033[0m"
-	@if [ ! -d "repository" ] || [ -z "$(ls -A repository)" ]; then \
-		git submodule update --init --recursive; \
-	else \
-		git submodule foreach 'git checkout main || true'; \
-		git submodule foreach 'git pull origin main'; \
-	fi
+	@rm -rf repository
+	@git submodule update --init --recursive
+	@cd repository && git checkout main && git pull origin main
 	@echo "\033[0;32mDependencies updated\033[0m"
 
 re: fclean all
