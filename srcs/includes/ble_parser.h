@@ -12,9 +12,9 @@
 	"Could not find libbleparser directory \
 if you have changed the name of the library file please change it back to the original 'libbleparser' \n"
 
-# define LE_REPO_AD_TYPES_PATH "repository/assigned_numbers/core/ad_types.yaml"
-# define LE_REPO_COMPANY_IDENTIFIERS_PATH "repository/assigned_numbers/company_identifiers/company_identifiers.yaml"
-# define LE_REPO_COD_PATH "repository/assigned_numbers/core/class_of_device.yaml"
+# define LE_REPO_AD_TYPES_PATH "srcs/repository/assigned_numbers/core/ad_types.yaml"
+# define LE_REPO_COMPANY_IDENTIFIERS_PATH "srcs/repository/assigned_numbers/company_identifiers/company_identifiers.yaml"
+# define LE_REPO_COD_PATH "srcs/repository/assigned_numbers/core/class_of_device.yaml"
 
 typedef struct s_yaml_paths
 {

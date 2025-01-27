@@ -1,5 +1,8 @@
 # libbleparser
 
++ libyaml https://github.com/yaml/libyaml
+
+
 ## **Status: In Development**
 
 This library was developed as part of a larger software project to extract and return manufacturer-specific data from LE advertising packets, and this functionality is fully operational. Other features are currently under development and will be added as the library evolves.

@@ -1,4 +1,3 @@
-[submodule "repository"]
-	path = repository
+[submodule "srcs/repository"]
+	path = srcs/repository
 	url = https://bitbucket.org/bluetooth-SIG/public.git
-
