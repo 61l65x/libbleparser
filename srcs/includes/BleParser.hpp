@@ -1,11 +1,15 @@
-#pragma once
+#ifndef BLEPARSER_HPP
+# define BLEPARSER_HPP
 
-#include "ble_parser.h"
-#include <stdexcept>
-#include <string>
-#include <iostream>
+# ifdef __cplusplus
 
-class BleParser {
+# include "ble_parser.h"
+# include <stdexcept>
+# include <string>
+# include <iostream>
+
+class BleParser
+{
 
 private:
     t_ble_parser* parser;
@@ -43,3 +47,6 @@ public:
 
 };
 
+# endif
+
+#endif
