@@ -1,0 +1,10 @@
+prefix=/usr/local
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: libbleparser
+Description: BLE Parsing Library
+Version: 1.0
+Cflags: -I${includedir}/libbleparser
+Libs: -L${libdir} -lbleparser
