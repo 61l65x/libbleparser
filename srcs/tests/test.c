@@ -1,4 +1,5 @@
 #include "ble_parser.h"
+
 int	main(void)
 {
 	t_ble_parser	*parser;
