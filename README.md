@@ -6,8 +6,9 @@
 
 + https://github.com/61l65x/wirelescanner
 
-
 ## **Status: In Development**
+
+### Issue executables built from the root of this lib only work for now get_yaml_paths.c fix !
 
 This library was developed as part of a larger software project to extract and return manufacturer-specific data from LE advertising packets, and this functionality is fully operational. Other features are currently under development and will be added as the library evolves.
 
@@ -76,6 +77,19 @@ LIBBLEPARSER_DIR=$(find . -type d -name libbleparser)
 # Compile your application using the found path
 gcc -I$LIBBLEPARSER_DIR/includes -o app app.c -L$LIBBLEPARSER_DIR/build -lbleparser -lyaml
 ```
+
+### **Dependency: LE Assigned Numbers Repository**  
+Wirelesscanner relies on the **LE Assigned Numbers Repository**, which is dynamically loaded at runtime for parsing Bluetooth LE advertising data.  
+
+By default, the repository is expected in:  
+- **System-wide locations**: `/usr/local/share/libbleparser/repository` or `/usr/share/libbleparser/repository`  
+- **A custom path** set via the environment variable:  
+```bash
+  export LIBBLEPARSER_REPO_PATH=/path/to/repository
+```
+
++ Relative to the executable (if running from a development environment)
+
 
 ## Functions
 
